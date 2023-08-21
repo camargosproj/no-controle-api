@@ -3,7 +3,7 @@ version: '3'
 services:
   backend:
       build: 
-        context: ./backend
+        context: .
         dockerfile: Dockerfile  
         target: ${NODE_ENV}
       image: backend-nocontrole 
@@ -13,32 +13,15 @@ services:
       ports:
         - '4000:4000'
       volumes:
-        - ./backend:/app
+        - .:/app
       depends_on:
-        - nocontrole_mysql_database 
+        - nocontrole_database 
         - studio
       networks:
         - nocontrole-network
 
-        
-  app-frontend:
-    build:
-      context: ./frontend
-      dockerfile: Dockerfile
-      target: ${NODE_ENV}
-    image: next-app
-    container_name: next-app
-    volumes:
-      - ./frontend:/app
-      - ./app/node_modules
-      - /app/.next
-    ports:
-      - "3000:3000"
-    networks:
-        - nocontrole-network
-
-
-  nocontrole_mysql_database:
+  
+  nocontrole_database:
     image: mysql:8.0
     container_name: nocontrole_database
     environment:
@@ -54,29 +37,16 @@ services:
         - nocontrole-network
   studio:
     build:
-        context: ./backend
+        context: .
         target: ${NODE_ENV}
     container_name: prisma_studio
     command: bash -c "npx prisma generate && npx prisma studio"
     volumes:
-        - ./backend:/app
+        - .:/app
     ports:
        - '5555:5555'
     depends_on:
-        - nocontrole_mysql_database
-    networks:
-        - nocontrole-network
-  migration:
-    build:
-        context: ./backend
-        target: ${NODE_ENV}
-    container_name: prisma_migration
-    command: bash -c "npx prisma migrate dev && yarn seed && npx prisma generate"
-    volumes:
-        - ./backend:/app
-    depends_on:
-        - nocontrole_mysql_database
-        - backend
+        - nocontrole_database
     networks:
         - nocontrole-network
 

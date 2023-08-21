@@ -35,7 +35,7 @@ COPY . .
 EXPOSE 4000
 
 # Build app
-RUN npx prisma generate && npx tsc
+# RUN npx prisma generate && npx tsc
 
 # Start production server
 CMD ["yarn", "start"]

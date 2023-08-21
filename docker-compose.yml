@@ -22,25 +22,21 @@ services:
 
   
   nocontrole_database:
-    image: mysql:8.0
+    image: postgres
     container_name: nocontrole_database
-    environment:
-        MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
-        MYSQL_DATABASE: ${DB_NAME} 
-        MYSQL_PASSWORD: ${DB_PASSWORD} 
-    restart: always
-    volumes:
-        - ./dbdata:/var/lib/mysql
+    env_file:
+      - .env
+    
     ports:
-        - "3306:3306"
-    networks:
-        - nocontrole-network
+      - "5432:5432"
+    volumes:
+      - ./dbdata:/var/lib/postgresql/data
   studio:
     build:
         context: .
         target: ${NODE_ENV}
     container_name: prisma_studio
-    command: bash -c "npx prisma generate && npx prisma studio"
+    command: bash -c "npx prisma generate && npx prisma migrate deploy && yarn seed && npx prisma studio"
     volumes:
         - .:/app
     ports:

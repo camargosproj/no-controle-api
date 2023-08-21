@@ -22,7 +22,9 @@ export default class AppController implements IController {
     throw new Error("Method not implemented.");
   }
   findAll = (req: Request, res: Response) => {
-    res.send("API WORKING!");
+    res.json({
+      status: "API WORKING!",
+    });
   };
   findOne(
     req: Request<ParamsDictionary, any, any, ParsedQs, Record<string, any>>,

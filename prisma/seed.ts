@@ -60,6 +60,11 @@ async function main() {
       type: "Despesas",
     },
     {
+      id: "1fadf478-2d13-4874-b69d-5d792ff00780",
+      name: "Contas e Serviços",
+      type: "Despesas",
+    },
+    {
       id: "577a8e6e-2c29-416f-881e-c8b7792d5121",
       name: "Transporte",
       type: "Despesas",

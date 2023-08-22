@@ -51,7 +51,7 @@ export default class BalanceService {
     }
 
     await this.prisma.$transaction([
-      this.prisma.transactionGroup.update({
+      this.prisma.transactionGroup.updateMany({
         where: {
           id: transactionGroupId,
           month: month as MonthType,

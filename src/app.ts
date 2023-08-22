@@ -10,6 +10,7 @@ import { envConfig } from "./utils/validateEnv";
 class App {
   public app: express.Application;
   private controllers: IController[];
+  private port: number = 3000;
 
   constructor(controllers: IController[]) {
     this.controllers = controllers;
@@ -61,8 +62,8 @@ class App {
   }
 
   public listen() {
-    return this.app.listen(envConfig.PORT, () => {
-      console.log(`-- App listening on the port ${process.env.PORT}`);
+    return this.app.listen(this.port, () => {
+      console.log(`-- App listening on the port ${this.port}`);
     });
   }
 }

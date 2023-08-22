@@ -36,7 +36,7 @@ EXPOSE 4000
 
 # Build app
 # RUN npx prisma generate && npx tsc
-RUN yarn build
+
 # Start production server
 CMD ["yarn", "start"]
 

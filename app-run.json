@@ -1,0 +1,9 @@
+{
+    "apps": [
+        {
+            "name": "API - No-Controle",
+            "script": "npm",
+            "args": "start"
+        }
+    ]
+}

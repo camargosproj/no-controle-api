@@ -22,8 +22,24 @@ export default class AppController implements IController {
     throw new Error("Method not implemented.");
   }
   findAll = (req: Request, res: Response) => {
+    // Get memory usage stats
+    const used = process.memoryUsage();
+
+    // Get CPU usage stats
+    const cpu = process.cpuUsage();
+
+    // Get uptime
+    const uptime = process.uptime();
+
     res.json({
       status: "API WORKING!",
+      memoryUsage: `${Math.round((used["rss"] / 1024 / 1024) * 100) / 100} MB`,
+      cpuUsage: `${
+        Math.round(
+          (cpu["user"] / 1024 / 1024 + cpu["system"] / 1024 / 1024) * 100
+        ) / 100
+      } MB`,
+      uptime: `${Math.round(uptime / 60)} minutes`,
     });
   };
   findOne(

@@ -12,4 +12,4 @@ jobs:
           username: ${{ secrets.USER }}
           key: ${{ secrets.KEY }}
           port: ${{ secrets.PORT }}
-          script: cd no-controle && git pull https://${{secrets.PAT}}@github.com/camargosproj/no-controle.git test-sic
+          script: cd no-controle && git pull https://${{secrets.PAT}}@github.com/camargosproj/no-controle.git test-sic && yarn build && pm2 restart 1

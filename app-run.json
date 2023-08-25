@@ -2,7 +2,7 @@
     "apps": [
         {
             "name": "API - No-Controle",
-            "script": "npm",
+            "script": "yarn",
             "args": "start"
         }
     ]

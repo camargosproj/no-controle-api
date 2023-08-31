@@ -139,6 +139,7 @@ export default class IncomeService {
 
   async update(userId: string, id: string, data: Income) {
     const income = await this.findOne(userId, id);
+    const date = data?.date ? moment(data.date).toDate() : undefined;
 
     const updatedIncome = await this.prisma.income.update({
       where: {
@@ -146,7 +147,7 @@ export default class IncomeService {
       },
       data: {
         ...data,
-        date: new Date(data.date),
+        date,
       },
     });
 

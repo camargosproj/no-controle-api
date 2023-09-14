@@ -13,7 +13,10 @@ services:
       ports:
         - '4000:4000'
       volumes:
-        - .:/app
+        - ./src:/app/src
+        - ./prisma:/app/prisma
+        - ./tsconfig.json:/app/tsconfig.json
+        - ./.env:/app/.env
       depends_on:
         - nocontrole_database 
         - studio

@@ -36,6 +36,7 @@ export default class AuthService {
         updatedAt: true,
         Balance: {
           where: {
+            userId: id,
             year: moment().format("YYYY"),
           },
           select: {

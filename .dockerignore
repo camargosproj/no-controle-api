@@ -1,6 +1,9 @@
 Dockerfile
 .dockerignore
 node_modules
+yarn.lock
+local
+.github
 *.log
 dist
 dbdata

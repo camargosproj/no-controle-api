@@ -18,7 +18,7 @@ export default class EmailService {
     { text, html }: { text?: string; html?: string }
   ) {
     await this.nodemailer.sendMail({
-      from: envConfig.EMAIL_USER,
+      from: `NoControle <${envConfig.EMAIL_USER}>`,
       to: email,
       subject: subject,
       html,

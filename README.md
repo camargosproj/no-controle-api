@@ -1,23 +1,12 @@
-# No controle!
+# No controle API
 
-Controle sua vida financeira de forma simples e rápida.
+## Overview
 
-## Projeto em desenvolvimento
+The `Nocontrole` API serves as the backend for the `Nocontrole` financial management system. It handles various tasks, including user authentication, data storage, and business logic.
 
-## Techs que serão utilizadas:
+## Core Technologies
 
-    - Frontend:
-        - ReactJS
-            - Material-UI
-            - React-Router
-            - Recharts
-        - Sass
-
-    - Backend:
-        - NodeJS 
-            - ExpressJS
-    - Database:
-        - MySQL
-
-
-
+- [Node.js](https://nodejs.org/en/)
+- [Express](https://expressjs.com/)
+- [Prisma](https://www.prisma.io/)
+- [PostgreSQL](https://www.postgresql.org/)

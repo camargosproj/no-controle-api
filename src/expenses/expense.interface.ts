@@ -4,7 +4,7 @@ export interface Expense {
   date: Date;
   categoryId: string;
   transactionGroupId: string | null;
-  paymentDate: Date | undefined | null;
+  paidAt: Date | undefined | null;
 }
 
 export interface AccountGroup {

@@ -4,7 +4,7 @@ export interface Income {
   date: Date;
   categoryId: string;
   transactionGroupId?: string | undefined;
-  receivedDate: Date | undefined | null;
+  receivedAt: Date | undefined | null;
 }
 
 export interface AccountGroup {

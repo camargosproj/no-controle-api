@@ -174,7 +174,7 @@ export default class BalanceService {
           month: month,
           year,
         },
-        receivedDate: {
+        receivedAt: {
           not: null,
         },
       },
@@ -190,7 +190,7 @@ export default class BalanceService {
           month: month,
           year,
         },
-        paymentDate: {
+        paidAt: {
           not: null,
         },
       },

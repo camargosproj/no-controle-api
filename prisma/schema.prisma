@@ -40,13 +40,13 @@ model Expense {
   amount             Float
   description        String
   date               DateTime
-  paymentDate        DateTime?
   category           Category          @relation(fields: [categoryId], references: [id])
   categoryId         String
   user               User              @relation(fields: [userId], references: [id])
   userId             String
   transactionGroup   TransactionGroup? @relation(fields: [transactionGroupId], references: [id])
   transactionGroupId String?
+  paidAt             DateTime?
   updatedAt          DateTime          @updatedAt
   createdAt          DateTime          @default(now())
 }
@@ -56,13 +56,13 @@ model Income {
   amount             Float
   description        String
   date               DateTime
-  receivedDate       DateTime?
   category           Category          @relation(fields: [categoryId], references: [id])
   categoryId         String
   user               User              @relation(fields: [userId], references: [id])
   userId             String
   transactionGroup   TransactionGroup? @relation(fields: [transactionGroupId], references: [id])
   transactionGroupId String?
+  receivedAt         DateTime?
   updatedAt          DateTime          @updatedAt
   createdAt          DateTime          @default(now())
 }

@@ -141,9 +141,14 @@ export default class ExpenseService {
   async update(userId: string, id: string, data: Expense) {
     const expense = await this.findOne(userId, id);
     const date = data?.date ? moment(data.date).toDate() : undefined;
-    const paymentDate = data?.paymentDate
-      ? moment(data.paymentDate).toDate()
-      : null;
+
+    let paidAt = undefined;
+
+    if (data?.paidAt === null) {
+      paidAt = null;
+    } else if (data?.paidAt) {
+      paidAt = moment(data.paidAt).toDate();
+    }
 
     const updatedExpense = await this.prisma.expense.update({
       where: {
@@ -151,7 +156,7 @@ export default class ExpenseService {
       },
       data: {
         ...data,
-        paymentDate,
+        paidAt,
         date,
       },
     });

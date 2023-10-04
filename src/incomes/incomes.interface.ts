@@ -3,8 +3,8 @@ export interface Income {
   description: string;
   date: Date;
   categoryId: string;
-  userId: string;
   transactionGroupId?: string | undefined;
+  receivedDate: Date | undefined | null;
 }
 
 export interface AccountGroup {

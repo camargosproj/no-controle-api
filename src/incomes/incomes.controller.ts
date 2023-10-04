@@ -21,7 +21,7 @@ export default class IncomesController implements IController {
     this.router.get(this.path, this.findAll);
     this.router.post(this.path, this.create);
     this.router.get(this.path + "/:id", this.findOne);
-    this.router.put(this.path + "/:id", this.update);
+    this.router.patch(this.path + "/:id", this.update);
     this.router.delete(this.path + "/:id", this.delete);
   }
 
@@ -29,7 +29,7 @@ export default class IncomesController implements IController {
     const { id: userId } = req.authUser;
 
     const expense: Income = req.body;
-    let data = await this.incomeService.create({ ...expense, userId });
+    let data = await this.incomeService.create(userId, expense);
 
     res.json(data);
   };

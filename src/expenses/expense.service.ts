@@ -12,13 +12,13 @@ export default class ExpenseService {
     this.prisma = prisma;
     this.balanceService = balanceService;
   }
-  async create(expense: Expense) {
+  async create(userId: string, expense: Expense) {
     const balanceMonthName = moment(expense.date).format("MMMM").toUpperCase();
     const year = moment(expense.date).format("YYYY");
-    let transactionDefaultGroup;
+    let transactionDefaultGroup = null;
     transactionDefaultGroup = await this.prisma.transactionGroup.findFirst({
       where: {
-        userId: expense.userId,
+        userId,
         isDefault: true,
         type: "EXPENSE",
         month: balanceMonthName as MonthType,
@@ -35,7 +35,7 @@ export default class ExpenseService {
         data: {
           name: "Geral - Minha Despesas",
           description: "Grupo de transações de despesas",
-          userId: expense.userId,
+          userId,
           isDefault: true,
           month: balanceMonthName as MonthType,
           type: "EXPENSE",
@@ -49,6 +49,7 @@ export default class ExpenseService {
     const expenseData = await this.prisma.expense.create({
       data: {
         ...expense,
+        userId,
         transactionGroupId,
         date: new Date(expense.date),
       },
@@ -140,6 +141,9 @@ export default class ExpenseService {
   async update(userId: string, id: string, data: Expense) {
     const expense = await this.findOne(userId, id);
     const date = data?.date ? moment(data.date).toDate() : undefined;
+    const paymentDate = data?.paymentDate
+      ? moment(data.paymentDate).toDate()
+      : null;
 
     const updatedExpense = await this.prisma.expense.update({
       where: {
@@ -147,6 +151,7 @@ export default class ExpenseService {
       },
       data: {
         ...data,
+        paymentDate,
         date,
       },
     });

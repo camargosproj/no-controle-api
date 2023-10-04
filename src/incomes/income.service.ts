@@ -11,13 +11,13 @@ export default class IncomeService {
     private balanceService: BalanceService
   ) {}
 
-  async create(income: Income) {
+  async create(userId: string, income: Income) {
     const balanceMonthName = moment(income.date).format("MMMM").toUpperCase();
     const year = moment(income.date).format("YYYY");
     let transactionDefaultGroup;
     transactionDefaultGroup = await this.prisma.transactionGroup.findFirst({
       where: {
-        userId: income.userId,
+        userId,
         isDefault: true,
         month: balanceMonthName as MonthType,
         year,
@@ -34,7 +34,7 @@ export default class IncomeService {
         data: {
           name: "Geral - Minhas Receitas",
           description: "Grupo de transações de receitas",
-          userId: income.userId,
+          userId,
           isDefault: true,
           month: balanceMonthName as MonthType,
           year,
@@ -49,6 +49,7 @@ export default class IncomeService {
     const incomeData = await this.prisma.income.create({
       data: {
         ...income,
+        userId,
         transactionGroupId,
         date: new Date(income.date),
       },
@@ -140,6 +141,9 @@ export default class IncomeService {
   async update(userId: string, id: string, data: Income) {
     const income = await this.findOne(userId, id);
     const date = data?.date ? moment(data.date).toDate() : undefined;
+    const receivedDate = data?.receivedDate
+      ? moment(data.receivedDate).toDate()
+      : null;
 
     const updatedIncome = await this.prisma.income.update({
       where: {
@@ -147,6 +151,7 @@ export default class IncomeService {
       },
       data: {
         ...data,
+        receivedDate,
         date,
       },
     });

@@ -25,7 +25,7 @@ services:
 
   
   nocontrole_database:
-    image: postgres
+    image: postgres:16
     container_name: nocontrole_database
     env_file:
       - .env

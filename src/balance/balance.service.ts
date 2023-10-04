@@ -167,10 +167,44 @@ export default class BalanceService {
       });
     }
 
+    const receivedIncomes = await this.prisma.income.aggregate({
+      where: {
+        userId,
+        transactionGroup: {
+          month: month,
+          year,
+        },
+        receivedDate: {
+          not: null,
+        },
+      },
+      _sum: {
+        amount: true,
+      },
+    });
+
+    const paidExpenses = await this.prisma.expense.aggregate({
+      where: {
+        userId,
+        transactionGroup: {
+          month: month,
+          year,
+        },
+        paymentDate: {
+          not: null,
+        },
+      },
+      _sum: {
+        amount: true,
+      },
+    });
+
     return {
       totalExpense: balanceData.expenseTotal,
       totalIncome: balanceData.incomeTotal,
       totalBalance: balanceData.balance,
+      receivedIncomes: receivedIncomes._sum.amount || 0,
+      paidExpenses: paidExpenses._sum.amount || 0,
       month: balanceData.month,
       year: balanceData.year,
     };
